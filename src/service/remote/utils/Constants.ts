@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://getthirukkural.appspot.com/api/3.0';

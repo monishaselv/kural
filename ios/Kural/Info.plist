@@ -26,14 +26,13 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -48,5 +47,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Inter_Bold.ttf</string>
+		<string>Inter_Light.ttf</string>
+		<string>Inter_Medium.ttf</string>
+		<string>Inter_Regular.ttf</string>
+		<string>Inter_SemiBold.ttf</string>
+		<string>Moderntamil Plain.ttf</string>
+		<string>NotoSansTamil-Bold.ttf</string>
+		<string>NotoSansTamil-Light.ttf</string>
+		<string>NotoSansTamil-Medium.ttf</string>
+		<string>NotoSansTamil-Regular.ttf</string>
+		<string>NotoSansTamil-SemiBold.ttf</string>
+		<string>TiroTamil-Italic.ttf</string>
+		<string>TiroTamil-Regular.ttf</string>
+	</array>
 </dict>
 </plist>

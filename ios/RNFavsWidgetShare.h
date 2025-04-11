@@ -5,8 +5,13 @@
 //  Created by Monisha Selvakumar on 10/04/25.
 //
 
-#ifndef RNFavsWidgetShare_h
-#define RNFavsWidgetShare_h
+#if __has_include("RCTBridgeModule.h")
+#import "RCTBridgeModule.h"
+#else
+#import <React/RCTBridgeModule.h>
+#endif
 
+@interface RNFavsWidgetShare : NSObject<RCTBridgeModule>
 
-#endif /* RNFavsWidgetShare_h */
+@end
+

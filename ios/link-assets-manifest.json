@@ -1,0 +1,57 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Inter_Bold.ttf",
+      "sha1": "327abbf74a5d71ffa8d888d976234cb11dabf194"
+    },
+    {
+      "path": "src/assets/fonts/Inter_Light.ttf",
+      "sha1": "ca9d1cbe741fb0ad6f9e469f2b390a79629d10ad"
+    },
+    {
+      "path": "src/assets/fonts/Inter_Medium.ttf",
+      "sha1": "3b9f3360ca812f2076db0bfc8bed4cfdd951e74f"
+    },
+    {
+      "path": "src/assets/fonts/Inter_Regular.ttf",
+      "sha1": "b9984093c0b2b612da5e58e4d4e1ba8c255353dc"
+    },
+    {
+      "path": "src/assets/fonts/Inter_SemiBold.ttf",
+      "sha1": "ee81756dc9685877077aae9027708aa84bc56027"
+    },
+    {
+      "path": "src/assets/fonts/Moderntamil Plain.ttf",
+      "sha1": "dbb381d4a48cc8a7d456411960687645053d7c4c"
+    },
+    {
+      "path": "src/assets/fonts/NotoSansTamil-Bold.ttf",
+      "sha1": "746dd8ada7cad99f5aabd03891e31f195272f279"
+    },
+    {
+      "path": "src/assets/fonts/NotoSansTamil-Light.ttf",
+      "sha1": "ef5c7655200d6155ed9f55df4682edb2accb1606"
+    },
+    {
+      "path": "src/assets/fonts/NotoSansTamil-Medium.ttf",
+      "sha1": "3653dad69604926781e18c695b2a48c06cb7762f"
+    },
+    {
+      "path": "src/assets/fonts/NotoSansTamil-Regular.ttf",
+      "sha1": "9fdd9c0e0693fd540751f6854e6cd640108f0110"
+    },
+    {
+      "path": "src/assets/fonts/NotoSansTamil-SemiBold.ttf",
+      "sha1": "a87ae1cbd81a94e5ca5583d211daa8f02a57c120"
+    },
+    {
+      "path": "src/assets/fonts/TiroTamil-Italic.ttf",
+      "sha1": "14276afd199ae9dba09daabc74136857ed248239"
+    },
+    {
+      "path": "src/assets/fonts/TiroTamil-Regular.ttf",
+      "sha1": "81448b24691959e8ecdc0305a5cc14e7a81c49ff"
+    }
+  ]
+}
