@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { appendFavKuralData, appendKuralData, clearFavKuralData, setFav, setLoading, setOpenInfo, setOpenSetting } from "../redux/slice/dashboardSlice";
+import { appendFavKuralData, appendKuralData, clearFavKuralData, setFav, setLoading } from "../redux/slice/dashboardSlice";
 import { useMemo, useRef, useState } from "react";
 import { Animated, NativeModules } from "react-native";
 import { BottomSheetMethods } from "../view/screens/Dialogs";
@@ -10,8 +10,6 @@ import { Easing } from "react-native-reanimated";
 import { useToast } from "../view/components/ToastContext";
 import SQLite from "react-native-sqlite-storage";
 import kural from '../assets/data/kural.json';
-import Storage from '../local/storage';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DashboardViewModel = () => {
     const dispatch = useDispatch();
@@ -32,16 +30,20 @@ const DashboardViewModel = () => {
     const [kural2, setKural2] = useState('');
     const [favKurals, setFavKurals] = useState<any>([]);
     const [hideSwipe, setHideSwipe] = useState(false);
+    const [isSettingsVisible, setSettingsVisible] = useState(false);
+    const [isInfoVisible, setInfoVisible] = useState(false);
     const isLoading = useSelector((state: RootState) => state.dashboard.loading);
     const [widgetKurals] = useState(kural);
     //bottomsheets functions
     const openInfoBottomSheet = () => {
         infoSheetRef.current?.expand();
-        dispatch(setOpenInfo(true))
+        console.log('info sheet', infoSheetRef.current);
+        setInfoVisible(true);
     };
     const openSettingsBottomSheet = () => {
         settingsSheetRef.current?.expand();
-        dispatch(setOpenSetting(true));
+        console.log('setting sheet', infoSheetRef.current);
+        setSettingsVisible(true);
     };
     //Animations
     const heartAnimation = () => {
@@ -336,8 +338,8 @@ const DashboardViewModel = () => {
         favChange, showToast, isFav, startAnimation, animationSwipe,
         animationHeart, openInfoBottomSheet, settingsSheetRef, infoSheetRef,
         openSettingsBottomSheet, getSpecificKural, kuralData, explain, translation, iyal, chapter, kural1, kural2, paal,
-        createFavsTable, storeFavKurals, fetchFavKurals, favKurals, getFavoritedKurals,
-        deleteFavsKural, favsData, checkFav, hideSwipe, setHideSwipe, isLoading, setFavKurals,
+        createFavsTable, storeFavKurals, fetchFavKurals, favKurals, getFavoritedKurals, isInfoVisible, isSettingsVisible,
+        deleteFavsKural, favsData, checkFav, hideSwipe, setHideSwipe, isLoading, setFavKurals, setInfoVisible, setSettingsVisible
     }
 }
 export default DashboardViewModel;

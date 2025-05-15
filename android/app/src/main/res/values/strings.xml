@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Kural</string>
+    <string name="appwidget_text">அகர முதல எழுத்தெல்லாம் ஆதி பகவன் முதற்றே உலகு.</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">Get New Kural Everyday</string>
+    <string name="app_fav_widget_description">Add your favourite kural</string>
 </resources>

@@ -7,8 +7,6 @@ interface dashboardState {
     favKuralData: any[];
     bgTheme: string;
     loading: boolean;
-    openSetting: boolean;
-    openInfo: boolean;
 }
 
 const initialState: dashboardState = {
@@ -18,8 +16,6 @@ const initialState: dashboardState = {
     favKuralData: [],
     bgTheme: 'StarBg',
     loading: false,
-    openSetting: false,
-    openInfo: false,
 };
 
 const dashboardSlice = createSlice({
@@ -56,14 +52,8 @@ const dashboardSlice = createSlice({
         setLoading: (state, actions) => {
             state.loading = actions.payload
         },
-        setOpenSetting: (state, actions) => {
-            state.openSetting = actions.payload
-        },
-        setOpenInfo: (state, actions) => {
-            state.openInfo = actions.payload
-        },
     }
 });
 export const { setFav, setKuralNum, setKuralData, clearFavKuralData,
-    appendKuralData, setFavKuralData, appendFavKuralData, setBgTheme, setLoading, setOpenInfo, setOpenSetting, removeFavKuralData } = dashboardSlice.actions;
+    appendKuralData, setFavKuralData, appendFavKuralData, setBgTheme, setLoading, removeFavKuralData } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

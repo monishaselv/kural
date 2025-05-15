@@ -20,7 +20,6 @@ import Kolam from '../../assets/images/Kolam.svg';
 import React from "react";
 import DashboardViewModel from "../../viewModel/DashboardViewModel";
 import { useDispatch } from "react-redux";
-import { setOpenInfo, setOpenSetting } from "../../redux/slice/dashboardSlice";
 import Storage from '../../local/storage';
 
 type BottomProps = {
@@ -49,7 +48,7 @@ export const SettingsBottomSheet = forwardRef<BottomSheetMethods>(
         }, [translateY]);
         const close = useCallback(() => {
             translateY.value = withTiming(CLOSE);
-            dispatch(setOpenSetting(false));
+            // dispatch(setOpenSetting(false));
         }, [CLOSE, translateY]);
         useImperativeHandle(
             ref,
@@ -127,7 +126,7 @@ export const SettingsBottomSheet = forwardRef<BottomSheetMethods>(
                             styles.container,
                             {
                                 width: width * 0.92,
-                                bottom: insets.bottom + 95,
+                                bottom: insets.bottom,
                             },
                             animationStyle,
                             backgroundColorAnimation,
@@ -213,7 +212,7 @@ export const DetailsBottomSheet = forwardRef<BottomSheetMethods, BottomProps>(({
     }, [translateY, currentKuralNum]);
     const close = useCallback(() => {
         translateY.value = withTiming(CLOSE);
-        dispatch(setOpenInfo(false));
+        // dispatch(setOpenInfo(false));
     }, [CLOSE, translateY]);
 
     useImperativeHandle(
@@ -284,7 +283,8 @@ export const DetailsBottomSheet = forwardRef<BottomSheetMethods, BottomProps>(({
                     styles.container,
                     {
                         width: width * 0.96,
-                        bottom: insets.bottom + 50,
+                        bottom: 0,
+                       // maxHeight: Platform.OS === 'android' ? '90%' : 0
                     },
                     animationStyle,
                     backgroundColorAnimation,

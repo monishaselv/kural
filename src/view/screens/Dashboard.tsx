@@ -9,11 +9,11 @@ import HeartOutlineIcon from '../../assets/images/HeartOutlineIcon.svg';
 import HeartFillIcon from '../../assets/images/HeartFillIcon.svg';
 import { AppStrings } from "../../constants/AppStrings";
 import UpArrow from '../../assets/images/UpArrow.svg';
-import { BottomSheetMethods, DetailsBottomSheet, SettingsBottomSheet } from "./Dialogs";
+import { DetailsBottomSheet, SettingsBottomSheet } from "./Dialogs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { setBgTheme, setKuralNum, setOpenInfo } from "../../redux/slice/dashboardSlice";
+import { setBgTheme, setKuralNum } from "../../redux/slice/dashboardSlice";
 import DashboardViewModel from "../../viewModel/DashboardViewModel";
 import kural from '../../assets/data/kural.json';
 import Storage from "../../local/storage";
@@ -37,8 +37,6 @@ const Dashboard = () => {
     const bgTheme = useSelector((state: RootState) => state.dashboard.bgTheme);
     const dashvoardView = DashboardViewModel();
     const appLaunched = useSelector((state: RootState) => state.appSlice.launchedApp);
-    const openInfo = useSelector((state: RootState) => state.dashboard.openInfo);
-    const openSetting = useSelector((state: RootState) => state.dashboard.openSetting);
     const isFav = useSelector((state: RootState) => state.dashboard.fav);
     const [searchNumber, setSearchNumber] = useState<string>('');
     const flatListRef = useRef<FlatList>(null);
@@ -50,6 +48,11 @@ const Dashboard = () => {
             dispatch(setKuralNum(kurals[currentIndex].kural_number));
         }
     };
+    const nums1 = [1, 5, 9, 3, 2];
+    const nums2 = [8, 4, 6, 7,];
+    const result = nums1.sort();
+    const result2 = nums2.sort();
+    // const finally = result + result2;
     const getDailyKural1 = async () => {
         try {
             // const lastUpdateDate = await Storage().getWidgetDate();
@@ -247,7 +250,8 @@ const Dashboard = () => {
 
     useEffect(() => {
         dashvoardView.startAnimation();
-    }, [dashvoardView.animationSwipe]);
+        { Keyboard.isVisible() ? console.log('keyborad visible ') : console.log('not visible🌈') }
+    }, [dashvoardView.animationSwipe, Keyboard]);
     useEffect(() => {
         const getTheme = async () => {
             const data = await Storage().getThemeData();
@@ -289,108 +293,107 @@ const Dashboard = () => {
             dashvoardView.checkFav(kuralNum);
         }
     }, [kuralNum, dashvoardView.favKurals]);
-
     return (
-        <KeyboardAvoidingView
-            behavior="position"
-            style={[
-                appStyles.sreenView, styles.appView, styles.contentZIndex,
-                { paddingTop: insets.top },
-            ]}
-        >
-            <Animated.View>
-                <Backgrounds bgTheme={bgTheme} />
-                <View style={styles.topView}>
-                    <View style={styles.searchBar}>
-                        <Search width={18} />
-                        <TextInput
-                            style={[styles.input, {
-                                fontSize: searchNumber ? 15 : 12,
-                                fontWeight: searchNumber ? '700' : '300',
-                                fontFamily: searchNumber ? 'Inter_Bold' : 'Inter_Regular'
-                            }]}
-                            onChangeText={onChangeNumber}
-                            value={searchNumber}
-                            maxLength={4}
-                            placeholder="Search No"
-                            placeholderTextColor={appColors.grey}
-                            keyboardType="numeric"
-                        />
-                    </View>
-                    <View style={styles.endTopView}>
-                        <AppTextBig text={kuralNum.toString()} langOption={'english'} styles={{ color: colors.primary, fontSize: 17 }}><AppText text={" /1330"}></AppText></AppTextBig>
-                        <Pressable onPress={() => {
-                            dashvoardView.openSettingsBottomSheet();
-                        }}>
-                            <SettingsIcon stroke={colors.iconsPrimary} strokeWidth={1.8} width={18} height={18}
-                                strokeLinejoin="round" strokeLinecap="round" />
-                        </Pressable>
-                    </View>
-                </View>
-                <FlatList
-                    ref={flatListRef}
-                    data={kurals}
-                    onScroll={handleScroll}
-                    renderItem={({ item }) => <View style={styles.containerList}>
-                        <AppTextBig styles={styles.kuralStyles} text={`${item.verse}\n`} langOption="tamil">
-                        </AppTextBig>
-                    </View>}
-                    keyboardShouldPersistTaps='handled'
-                    automaticallyAdjustKeyboardInsets={true}
-                    keyExtractor={(item) => item.kural_number.toString()}
-                    onScrollEndDrag={() => { dashvoardView.setHideSwipe(true) }}
-                    snapToAlignment="start"
-                    decelerationRate={"fast"}
-                    snapToInterval={Dimensions.get("window").height}
-                    showsVerticalScrollIndicator={false}
-                    onEndReachedThreshold={0.1}
-                    ListEmptyComponent={() => <View style={styles.containerList}>
-                        <AppText text="No Data Found !!"></AppText>
-                    </View>}
-                    getItemLayout={(data, index) => ({
-                        length: Dimensions.get("window").height,
-                        offset: Dimensions.get("window").height * index,
-                        index,
-                    })}
-                    onScrollToIndexFailed={onScrollToIndexFailed}
-                />
-                <View style={[styles.bottomView]}>
-                    <Pressable onPress={() => {
-                        dashvoardView.openInfoBottomSheet();
-                    }}
-                        style={[styles.bottomCircle, { borderColor: colors.fadedWhite }]}>
-                        <InfoIcon />
-                    </Pressable>
-                    {appLaunched === 'Installed' ? <></> :
-                        dashvoardView.hideSwipe === true ? <></> :
-                            <View style={styles.swipeStyles}>
-                                <Animated.View style={{ transform: [{ translateY: dashvoardView.animationSwipe }] }}>
-                                    <UpArrow stroke={colors.iconsPrimary} strokeWidth={1.3} width={20} height={20} />
-                                </Animated.View>
-                                <AppTextSmall text={AppStrings.swipeUp} />
-                            </View>}
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Animated.View style={{ transform: [{ translateY: dashvoardView.animationHeart }] }} >
-                            <Pressable onPress={() => dashvoardView.favChange(kuralNum)}
-                                style={[styles.bottomCircle, { borderColor: isFav ? colors.fadedWhite : colors.primary }]}>
-                                {isFav ?
-                                    <HeartFillIcon /> : <HeartOutlineIcon />}
-                            </Pressable>
-                        </Animated.View>
-                    </View>
-                </View>
-                {openSetting &&
-                    <SettingsBottomSheet
-                        ref={dashvoardView.settingsSheetRef}
-                    />}
-                {openInfo &&
-                    <DetailsBottomSheet
-                        currentKuralNum={kuralNum}
-                        ref={dashvoardView.infoSheetRef}
+        // <KeyboardAvoidingView
+        //     // behavior="position"
+        //     // // {...(Keyboard.isVisible() ? { behavior: 'position' } : {})}
+        //     style={[
+        //         appStyles.sreenView, styles.appView, styles.contentZIndex,
+        //         { paddingTop: insets.top, backgroundColor: 'pink' },
+        //     ]}
+        // >
+        <Animated.View style={[appStyles.sreenView, styles.appView, { paddingTop: insets.top, }]}>
+            <Backgrounds bgTheme={bgTheme} />
+            <View style={styles.topView}>
+                <View style={styles.searchBar}>
+                    <Search width={18} />
+                    <TextInput
+                        style={[styles.input, {
+                            fontSize: searchNumber ? 15 : 12,
+                            fontWeight: searchNumber ? '700' : '300',
+                            fontFamily: searchNumber ? 'Inter_Bold' : 'Inter_Regular'
+                        }]}
+                        onChangeText={onChangeNumber}
+                        value={searchNumber}
+                        maxLength={4}
+                        placeholder="Search No"
+                        placeholderTextColor={appColors.grey}
+                        keyboardType="numeric"
                     />
-                }
-            </Animated.View>
-        </KeyboardAvoidingView>
+                </View>
+                <View style={styles.endTopView}>
+                    <AppTextBig text={kuralNum.toString()} langOption={'english'} styles={{ color: colors.primary, fontSize: 17 }}><AppText text={" /1330"}></AppText></AppTextBig>
+                    <Pressable onPress={() => {
+                        dashvoardView.openSettingsBottomSheet();
+                        console.log("openning");
+                    }}>
+                        <SettingsIcon stroke={colors.iconsPrimary} strokeWidth={1.8} width={18} height={18}
+                            strokeLinejoin="round" strokeLinecap="round" />
+                    </Pressable>
+                </View>
+            </View>
+            <FlatList
+                ref={flatListRef}
+                data={kurals}
+                onScroll={handleScroll}
+                renderItem={({ item }) => <View style={styles.containerList}>
+                    <AppTextBig styles={styles.kuralStyles} text={`${item.verse}\n`} langOption="tamil">
+                    </AppTextBig>
+                </View>}
+                keyboardShouldPersistTaps='handled'
+                automaticallyAdjustKeyboardInsets={true}
+                keyExtractor={(item) => item.kural_number.toString()}
+                onScrollEndDrag={() => { dashvoardView.setHideSwipe(true) }}
+                snapToAlignment="start"
+                decelerationRate={"fast"}
+                snapToInterval={Dimensions.get("window").height}
+                showsVerticalScrollIndicator={false}
+                onEndReachedThreshold={0.1}
+                ListEmptyComponent={() => <View style={styles.containerList}>
+                    <AppText text="No Data Found !!"></AppText>
+                </View>}
+                getItemLayout={(data, index) => ({
+                    length: Dimensions.get("window").height,
+                    offset: Dimensions.get("window").height * index,
+                    index,
+                })}
+                onScrollToIndexFailed={onScrollToIndexFailed}
+            />
+            <View style={[styles.bottomView]}>
+                <Pressable onPress={() => {
+                    dashvoardView.openInfoBottomSheet();
+                    console.log('seeting open');
+                }}
+                    style={[styles.bottomCircle, { borderColor: colors.fadedWhite }]}>
+                    <InfoIcon />
+                </Pressable>
+                {appLaunched === 'Installed' ? <></> :
+                    dashvoardView.hideSwipe === true ? <></> :
+                        <View style={styles.swipeStyles}>
+                            <Animated.View style={{ transform: [{ translateY: dashvoardView.animationSwipe }] }}>
+                                <UpArrow stroke={colors.iconsPrimary} strokeWidth={1.3} width={20} height={20} />
+                            </Animated.View>
+                            <AppTextSmall text={AppStrings.swipeUp} />
+                        </View>}
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Animated.View style={{ transform: [{ translateY: dashvoardView.animationHeart }] }} >
+                        <Pressable onPress={() => dashvoardView.favChange(kuralNum)}
+                            style={[styles.bottomCircle, { borderColor: isFav ? colors.fadedWhite : colors.primary }]}>
+                            {isFav ?
+                                <HeartFillIcon /> : <HeartOutlineIcon />}
+                        </Pressable>
+                    </Animated.View>
+                </View>
+            </View>
+            <DetailsBottomSheet
+                currentKuralNum={kuralNum}
+                ref={dashvoardView.infoSheetRef}
+            />
+            <SettingsBottomSheet
+                ref={dashvoardView.settingsSheetRef}
+            />
+        </Animated.View>
+        // </KeyboardAvoidingView>
     );
 }
 
@@ -453,9 +456,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 30,
-        marginBottom: 20,
-        bottom: 100,
-        position: 'absolute', width: '100%'
+        //marginBottom: 20,
+        bottom: 40,
+        //position: 'absolute', width: '100%'
     },
     bottomCircle: {
         height: 50,

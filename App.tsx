@@ -11,7 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Storage from './src/local/storage';
 import { ToastProvider, useToast } from './src/view/components/ToastContext';
 import { AppToast } from './src/view/components/AppToast';
-import SampleApp from './src/sample';
+import { KeyboardAvoidingView } from 'react-native';
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -55,7 +55,7 @@ const App = () => {
           <ThemeContext.Provider value={themeContext}>
             <ToastProvider>
               <GestureHandlerRootView>
-                <AppNavigatior />
+                  <AppNavigatior />
                 {/* <SampleApp/> */}
               </GestureHandlerRootView>
               <GlobalToast />

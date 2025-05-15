@@ -84,71 +84,74 @@ export const Favourites = () => {
     }, [favsKuralData]);
 
     return (
-        <KeyboardAvoidingView
-            behavior="position"
-            style={[
-                appStyles.sreenView, styles.appView,
-                { paddingTop: insets.top },
-            ]}>
-            <View>
-                <Backgrounds bgTheme={bgTheme} />
-                <View style={styles.topView}>
-                    <Pressable style={styles.bottomCircle} onPress={() => { navigation.pop() }}>
-                        <UpArrow stroke={colors.iconsPrimary} transform={[{ rotate: '-90deg' }]}
-                            strokeWidth={1.3} width={18} height={18} />
-                    </Pressable>
-                    <AppTextBold text={AppStrings.favs} styles={{ alignSelf: 'center' }}></AppTextBold>
-                    <Pressable style={styles.bottomCircle} onPress={() => { navigation.pop() }}>
-                        <AppTextBold text={currentKural.toString()} styles={{ alignSelf: 'center' }}></AppTextBold>
-                    </Pressable>
-                </View>
-                <FlatList
-                    data={favsKuralData}
-                    renderItem={({ item }) => <View style={styles.containerList}>
-                        <AppTextBig styles={styles.kuralStyles} text={`${item.text1}\n`} langOption="tamil">
-                            <AppTextBig text={item.text2} langOption="tamil"></AppTextBig>
-                        </AppTextBig>
-                    </View>}
-                    ListEmptyComponent={() =>
-                        dashvoardView.isLoading ?
-                            <View style={styles.containerList}>
-                                <ActivityIndicator size="large" color={colors.primary} style={styles.loader} />
-                            </View> :
-                            <NoDataWidget />}
-                    keyExtractor={(item, index) => `${item.id}-${index.toString()}`}
-                    snapToAlignment="start"
-                    decelerationRate={"fast"}
-                    snapToInterval={Dimensions.get("window").height}
-                    onScrollEndDrag={() => { setHideSwipe(true) }}
-                    showsVerticalScrollIndicator={false}
-                    onScroll={handleScroll}
-                />
-                <View style={styles.bottomView}>
-                    <Pressable onPress={() => {
-                        // bottomSheetRef.current?.expand();
-                        dashvoardView.openInfoBottomSheet();
-                    }}
-                        style={[styles.bottomCircle2, { borderColor: colors.fadedWhite }]}>
-                        <InfoIcon />
-                    </Pressable>
-                    {appLaunched === 'Installed' ? <></> :
-                        hideSwipe === true ? <></> : <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Animated.View style={{ transform: [{ translateY: animationSwipe }] }} >
-                                <UpArrow stroke={colors.iconsPrimary} strokeWidth={1.3} width={18} height={18} />
-                            </Animated.View>
-                            <AppTextSmall styles={{ textAlign: 'right' }} text={AppStrings.swipeUpFavs}></AppTextSmall>
-                        </View>}
-                    <Pressable onPress={() => { favChange(currentKural) }} style={styles.bottomCircle2}>
-                        {dashvoardView.favKurals.includes(currentKural) ?
-                            <HeartFillIcon /> : <HeartOutlineIcon />}
-                    </Pressable>
-                </View>
-                <DetailsBottomSheet
-                    currentKuralNum={currentKural}
-                    ref={dashvoardView.infoSheetRef}
-                />
+        // <KeyboardAvoidingView
+        //     behavior="position"
+        //     style={[
+        //         appStyles.sreenView, styles.appView,
+        //         { paddingTop: insets.top },
+        //     ]}>
+        <View style={[
+            appStyles.sreenView, styles.appView,
+            { paddingTop: insets.top },
+        ]}>
+            <Backgrounds bgTheme={bgTheme} />
+            <View style={styles.topView}>
+                <Pressable style={styles.bottomCircle} onPress={() => { navigation.pop() }}>
+                    <UpArrow stroke={colors.iconsPrimary} transform={[{ rotate: '-90deg' }]}
+                        strokeWidth={1.3} width={18} height={18} />
+                </Pressable>
+                <AppTextBold text={AppStrings.favs} styles={{ alignSelf: 'center' }}></AppTextBold>
+                <Pressable style={styles.bottomCircle} onPress={() => { navigation.pop() }}>
+                    <AppTextBold text={currentKural.toString()} styles={{ alignSelf: 'center' }}></AppTextBold>
+                </Pressable>
             </View>
-        </KeyboardAvoidingView>
+            <FlatList
+                data={favsKuralData}
+                renderItem={({ item }) => <View style={styles.containerList}>
+                    <AppTextBig styles={styles.kuralStyles} text={`${item.text1}\n`} langOption="tamil">
+                        <AppTextBig text={item.text2} langOption="tamil"></AppTextBig>
+                    </AppTextBig>
+                </View>}
+                ListEmptyComponent={() =>
+                    dashvoardView.isLoading ?
+                        <View style={styles.containerList}>
+                            <ActivityIndicator size="large" color={colors.primary} style={styles.loader} />
+                        </View> :
+                        <NoDataWidget />}
+                keyExtractor={(item, index) => `${item.id}-${index.toString()}`}
+                snapToAlignment="start"
+                decelerationRate={"fast"}
+                snapToInterval={Dimensions.get("window").height}
+                onScrollEndDrag={() => { setHideSwipe(true) }}
+                showsVerticalScrollIndicator={false}
+                onScroll={handleScroll}
+            />
+            <View style={styles.bottomView}>
+                <Pressable onPress={() => {
+                    // bottomSheetRef.current?.expand();
+                    dashvoardView.openInfoBottomSheet();
+                }}
+                    style={[styles.bottomCircle2, { borderColor: colors.fadedWhite }]}>
+                    <InfoIcon />
+                </Pressable>
+                {appLaunched === 'Installed' ? <></> :
+                    hideSwipe === true ? <></> : <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Animated.View style={{ transform: [{ translateY: animationSwipe }] }} >
+                            <UpArrow stroke={colors.iconsPrimary} strokeWidth={1.3} width={18} height={18} />
+                        </Animated.View>
+                        <AppTextSmall styles={{ textAlign: 'right' }} text={AppStrings.swipeUpFavs}></AppTextSmall>
+                    </View>}
+                <Pressable onPress={() => { favChange(currentKural) }} style={styles.bottomCircle2}>
+                    {dashvoardView.favKurals.includes(currentKural) ?
+                        <HeartFillIcon /> : <HeartOutlineIcon />}
+                </Pressable>
+            </View>
+            <DetailsBottomSheet
+                currentKuralNum={currentKural}
+                ref={dashvoardView.infoSheetRef}
+            />
+        </View>
+        // </KeyboardAvoidingView>
     );
 }
 
@@ -193,11 +196,11 @@ const styles = StyleSheet.create({
     bottomView: {
         alignItems: 'center',
         paddingHorizontal: 30,
-        marginBottom: 20,
+        // marginBottom: 20
         flexDirection: 'row',
         justifyContent: 'space-between',
-        bottom: 90,
-        position: 'absolute', width: '100%'
+        bottom: 40,
+        //position: 'absolute', width: '100%'
     },
     bottomCircle: {
         height: 40,

@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    width: '100%',
-    height: '95%',
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width,
     position: 'absolute',
   },
   noDataStyles: {
