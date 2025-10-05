@@ -35,7 +35,7 @@ const AppNavigatior = () => {
    }
    return (
       <Stack.Navigator screenOptions={{ headerShown: false }} >
-         {appLaunched === 'Installed' ? <Stack.Screen name="Dashboard" component={Dashboard} /> :
+         {appLaunched === 'Installed' ? <Stack.Screen name="SplashScreen" component={SplashScreen} /> :
             <Stack.Screen name="SplashScreen" component={SplashScreen} />}
          <Stack.Screen name="OnboardingScreen1" options={{ animation: 'none' }} component={OnboardingScreen1} />
          <Stack.Screen name="OnboardingScreen2" component={OnboardingScreen2} />
