@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { setBgTheme } from "../../redux/slice/dashboardSlice";
 import Storage from "../../local/storage";
 import { useToast } from "../components/ToastContext";
+import React from "react";
 
 export const Themes = () => {
     const insets = useSafeAreaInsets();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, Dimensions, Button } from 'react-native';
 import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppToast } from './view/components/AppToast';
@@ -8,12 +8,77 @@ import { TextInput } from 'react-native-gesture-handler';
 import { DbStorage } from './local/db';
 import kural from './assets/data/kural.json';
 import Storage from './local/storage';
+interface User {
+    name: string;
+}
+
+interface User {
+    age: number;
+}
+type User2 = {
+    name: string;
+}
+type User3 = {
+    age: number;
+}
+const arr = [1, 2, 3]
+useEffect(() => {
+    fetchApi(tutorId)
+}, [arr])
+
 
 const SampleApp = () => {
     const [widgetKurals] = useState(kural);
     const [modalVisible, setModalVisible] = useState(false);
     const insets = useSafeAreaInsets();
     const [kk, setKk] = useState(0);
+    function useDebounce<T>(value: T, delay: number): T {
+        const [debounce, setDebounce] = useState(value);
+        useEffect(() => {
+            const handler = setTimeout(() => {
+                setDebounce(value)
+            }, delay)
+            return () => clearTimeout(handler)
+        }, [value, delay])
+        return debounce;
+    }
+    function useDebounce2<T>(value: T, delay: number): T {
+        const [debounce, setDebounce] = useState(value);
+        useEffect(() => {
+            const handler = setTimeout(() => {
+                setDebounce(value)
+            }, delay)
+            return () => clearTimeout(handler)
+        }, [value, delay]);
+        return debounce
+    }
+
+    function print(value: string | number) {
+        console.log(value);
+        if (typeof value === 'string') {
+            value.toUpperCase();
+        }
+        else {
+            value.toFixed();
+        }
+    }
+    const fetchData = async () => {
+        const url = '';
+        try {
+            const data = await fetch(url)
+            const response = data.json()
+            return data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const response = [
+        { id: 1, name: 'Device A', isOnline: true },
+        { id: 2, name: 'Device B', isOnline: false },
+        { id: 3, name: 'Device C', isOnline: true }
+    ];
+
+    const onlineDevices = response.filter(device => device.isOnline).map(device => device.name);
 
     // const createSampleTable = () => {
     //     DbStorage.executeSql("CREATE TABLE IF NOT EXISTS TestApp (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)", [], (result: any) => {
@@ -95,16 +160,19 @@ const SampleApp = () => {
 };
 const ParentComponent = () => {
     const handlePress = () => {
-      console.log("Button Pressed");
+        console.log("Button Pressed");
     };
-  
+    const handlePresss = useCallback(() => {
+        console.log("Button Pressed");
+    }, [])
+
     return <ChildComponent onPress={handlePress} />;
-  };
-  
-  const ChildComponent = React.memo(({ onPress }:any) => {
+};
+
+const ChildComponent = React.memo(({ onPress }: any) => {
     return <Button title="Press me" onPress={onPress} />;
-  });
-  
+});
+
 const styles = StyleSheet.create({
     containerList: {
         height: Dimensions.get("window").height,
@@ -199,3 +267,60 @@ const styles = StyleSheet.create({
 });
 
 export default SampleApp;
+
+//   const triggerTestNotification = async () => {
+//     await notifee.requestPermission();
+
+//     await notifee.createChannel({
+//       id: 'scheduled',
+//       name: 'Scheduled Channel',
+//       importance: AndroidImportance.HIGH,
+//     });
+//     await notifee.createChannel({
+//       id: 'sound-test',
+//       name: 'Sound Test Channel',
+//       importance: AndroidImportance.HIGH,
+//       sound: 'default',
+//       vibration: true,
+//     });
+
+//     const now = new Date();
+//     const triggerDate = new Date();
+
+//     triggerDate.setHours(15);   // 2 PM (24-hour format)
+//     triggerDate.setMinutes(45);
+//     triggerDate.setSeconds(0);
+//     triggerDate.setMilliseconds(0);
+
+//     // If 2:28 already passed → schedule tomorrow
+//     if (triggerDate.getTime() <= now.getTime()) {
+//       triggerDate.setDate(triggerDate.getDate() + 1);
+//     }
+
+//     const trigger: TimestampTrigger = {
+//       type: TriggerType.TIMESTAMP,
+//       timestamp: triggerDate.getTime(),
+//     };
+
+//     await notifee.createTriggerNotification(
+//       {
+//         title: 'Moniiiiiiiiiiiii 🦋⏰',
+//         body: 'Its time go for a walk.....💜',
+//         android: {
+//           channelId: 'scheduled',
+//         },
+//       },
+//       trigger,
+//     );
+//     await notifee.displayNotification({
+//       title: 'Sound Working 🔔',
+//       body: 'You should hear this.',
+//       android: {
+//         channelId: 'sound-test',
+//         sound: 'default',
+//       },
+//       ios: {
+//         sound: 'default',
+//       },
+//     });
+//   }

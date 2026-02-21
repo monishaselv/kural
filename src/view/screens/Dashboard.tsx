@@ -23,6 +23,7 @@ import Search from '../../assets/images/Search.svg';
 import { useToast } from "../components/ToastContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRoute } from "@react-navigation/native";
+import React from "react";
 
 const Dashboard = () => {
     const route = useRoute();
@@ -48,10 +49,6 @@ const Dashboard = () => {
             dispatch(setKuralNum(kurals[currentIndex].kural_number));
         }
     };
-    const nums1 = [1, 5, 9, 3, 2];
-    const nums2 = [8, 4, 6, 7,];
-    const result = nums1.sort();
-    const result2 = nums2.sort();
     // const finally = result + result2;
     const getDailyKural1 = async () => {
         try {
@@ -207,9 +204,9 @@ const Dashboard = () => {
         }, 100);
     };
 
-    useEffect(() => {
-        getDailyKural();
-    }, []);
+    // useEffect(() => {
+    //     getDailyKural();
+    // }, []);
 
     // useEffect(() => {
     //     if (routedKural) {
@@ -218,34 +215,6 @@ const Dashboard = () => {
     //     else {
     //         console.log('no no no no ');
     //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     console.log("🔥 useEffect triggered on mount");
-
-    //     if (!dashvoardView?.openInfoBottomSheet) {
-    //         console.log("⚠️ openInfoBottomSheet() is not defined yet!");
-    //         return;
-    //     }
-
-    //     console.log("✅ openInfoBottomSheet() is available, calling it...");
-    //     setTimeout(() => {
-    //         dashvoardView.openInfoBottomSheet();
-    //     }, 500);
-    // }, []);
-
-    // useEffect(() => {
-    //     const waitForRef = setInterval(() => {
-    //         if (dashvoardView.infoSheetRef.current) {
-    //             console.log("✅ infoSheetRef is ready, expanding...");
-    //             dashvoardView.infoSheetRef.current.expand();
-    //             clearInterval(waitForRef);
-    //         } else {
-    //             console.log("⏳ Waiting for infoSheetRef...");
-    //         }
-    //     }, 300); // Check every 300ms
-
-    //     return () => clearInterval(waitForRef);
     // }, []);
 
     useEffect(() => {

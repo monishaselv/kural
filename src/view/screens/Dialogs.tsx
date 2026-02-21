@@ -162,7 +162,7 @@ export const SettingsBottomSheet = forwardRef<BottomSheetMethods>(
                                     <Switch
                                         trackColor={{ false: appColors.circleGrey, true: colors.primary }}
                                         thumbColor={isDarkTheme ? appColors.switchThumb : colors.lightGrey}
-                                        ios_backgroundColor={appColors.lightGrey}
+                                        // ios_backgroundColor={appColors.lightGrey}
                                         onValueChange={toggleSwitch}
                                         value={isDarkTheme} // Use `isDarkTheme` instead of `isEnabled`
                                         style={{ transform: Platform.OS === 'ios' ? [{ scaleX: .8 }, { scaleY: .8 }] : '' }}
@@ -284,7 +284,7 @@ export const DetailsBottomSheet = forwardRef<BottomSheetMethods, BottomProps>(({
                     {
                         width: width * 0.96,
                         bottom: 0,
-                       // maxHeight: Platform.OS === 'android' ? '90%' : 0
+                        // maxHeight: Platform.OS === 'android' ? '90%' : 0
                     },
                     animationStyle,
                     backgroundColorAnimation,

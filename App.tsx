@@ -11,11 +11,16 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Storage from './src/local/storage';
 import { ToastProvider, useToast } from './src/view/components/ToastContext';
 import { AppToast } from './src/view/components/AppToast';
-import { KeyboardAvoidingView } from 'react-native';
+import notifee, { AndroidImportance, TimestampTrigger, TriggerType } from '@notifee/react-native';
+import { initializeDailySystem } from './src/viewModel/kuralUpdater';
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const theme = isDarkTheme ? 'dark' : 'light';
+
+  useEffect(() => {
+    initializeDailySystem();
+  }, []);
 
   useEffect(() => {
     const fetchModeData = async () => {
@@ -48,6 +53,7 @@ const App = () => {
       },
     },
   };
+
   return (
     <Provider store={store}>
       <SafeAreaProvider>
@@ -55,8 +61,8 @@ const App = () => {
           <ThemeContext.Provider value={themeContext}>
             <ToastProvider>
               <GestureHandlerRootView>
-                  <AppNavigatior />
-                {/* <SampleApp/> */}
+                <AppNavigatior />
+                {/* <Example /> */}
               </GestureHandlerRootView>
               <GlobalToast />
             </ToastProvider>

@@ -18,6 +18,7 @@ import { Backgrounds, NoDataWidget } from "../components/AppButtons";
 import { removeFavKuralData } from "../../redux/slice/dashboardSlice";
 import { BottomSheetMethods, DetailsBottomSheet } from "./Dialogs";
 import InfoIcon from '../../assets/images/InfoIcon.svg';
+import React from "react";
 
 
 export const Favourites = () => {
