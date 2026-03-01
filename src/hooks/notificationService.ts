@@ -7,7 +7,7 @@ export const scheduleNextNotification = async (kuralData: any) => {
 
         const next9AM = new Date();
         next9AM.setHours(9, 0, 0, 0);
-
+        // const next9AM = new Date(Date.now() + 5 * 60 * 1000);
         console.log('🕘 Initial 9AM candidate:', next9AM.toString());
 
         if (next9AM.getTime() <= now.getTime()) {
@@ -25,7 +25,7 @@ export const scheduleNextNotification = async (kuralData: any) => {
 
         await notifee.createTriggerNotification(
             {
-                title: `Kural ${kuralData.kural_number} 🌿`,
+                title: `Kural of the day ✨`,
                 body: kuralData.verse,
                 android: {
                     channelId: 'daily-kural',
@@ -38,6 +38,9 @@ export const scheduleNextNotification = async (kuralData: any) => {
             {
                 type: TriggerType.TIMESTAMP,
                 timestamp: next9AM.getTime(),
+                alarmManager: {
+                    allowWhileIdle: true,
+                },
             }
         );
 

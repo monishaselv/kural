@@ -24,4 +24,6 @@ export const AppStrings = {
     themes: 'Themes',
     chooseTheme: 'Choose a theme that you \n are interested in',
     noData: 'No Data Available !!',
+    dailyReadNotifi: 'Daily Reading\nNotifications',
+    getnotifiedText: 'Kickstart your day with a new kural every morning, and a moment of ancient wisdom can shift a modern mind. Read, reflect, and discover deeper meaning with each verse. One Kural a day, a lifetime of clarity.'
 }

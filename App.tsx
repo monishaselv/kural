@@ -11,7 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Storage from './src/local/storage';
 import { ToastProvider, useToast } from './src/view/components/ToastContext';
 import { AppToast } from './src/view/components/AppToast';
-import notifee, { AndroidImportance, TimestampTrigger, TriggerType } from '@notifee/react-native';
+import notifee from '@notifee/react-native';
 import { initializeDailySystem } from './src/viewModel/kuralUpdater';
 
 const App = () => {
@@ -19,8 +19,33 @@ const App = () => {
   const theme = isDarkTheme ? 'dark' : 'light';
 
   useEffect(() => {
-    initializeDailySystem();
+    function randomInteger(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    const randomNumber = randomInteger(0, 1330);
+    console.log('this is the number generated randomly', randomNumber);
+  }, [])
+
+  useEffect(() => {
+    const bootstrapNotifications = async () => {
+      await triggerNotification();
+      await initializeDailySystem();
+    };
+
+    bootstrapNotifications();
   }, []);
+
+  const triggerNotification = async () => {
+    await notifee.requestPermission();
+
+    await notifee.createChannel({
+      id: 'daily-kural',
+      name: 'Daily Kural',
+      importance: 4,
+      sound: 'default',
+      vibration: true,
+    });
+  }
 
   useEffect(() => {
     const fetchModeData = async () => {

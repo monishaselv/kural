@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import org.json.JSONObject;
@@ -12,28 +13,29 @@ import org.json.JSONObject;
  * Implementation of App Widget functionality.
  */
 public class Kural extends AppWidgetProvider {
+    private static final String TAG = "KuralWidget";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-//        // Construct the RemoteViews object
-//        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.kural);
-//        views.setTextViewText(R.id.dailyKural, widgetText);
-//
-//        // Instruct the widget manager to update the widget
-//        appWidgetManager.updateAppWidget(appWidgetId, views);
-        try {
-            SharedPreferences sharedRef = context.getSharedPreferences("DATA",Context.MODE_PRIVATE);
-            String stringJsonData = sharedRef.getString("kuralWidget", "{\"kural\":\"Sample verse\",\"kuralCount\":1,\"chapter\":\"Chapter name\"}");
-            JSONObject widgetData = new JSONObject(stringJsonData);
+        String defaultKural = context.getString(R.string.appwidget_text);
+        String kuralText = defaultKural;
 
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.kural);
-            views.setTextViewText(R.id.dailyKural,widgetData.getString("kural"));
-            appWidgetManager.updateAppWidget(appWidgetId, views);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        SharedPreferences sharedRef = context.getSharedPreferences("DATA", Context.MODE_PRIVATE);
+        String stringJsonData = sharedRef.getString("kuralWidget", null);
+
+        if (stringJsonData != null) {
+            try {
+                JSONObject widgetData = new JSONObject(stringJsonData);
+                kuralText = widgetData.optString("kural", defaultKural);
+            } catch (Exception e) {
+                Log.e(TAG, "Invalid kuralWidget JSON, using default kural", e);
+            }
         }
+
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.kural);
+        views.setTextViewText(R.id.dailyKural, kuralText);
+        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override

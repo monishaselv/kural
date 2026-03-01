@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Storage from "../local/storage";
 import { setLaunchedApp } from "../redux/slice/appSlice";
 import { RootState } from "../redux/store";
+import GetNotificationScreen from "../view/screens/UserPrefers/GetNotified";
 
 const Stack = createNativeStackNavigator();
 const AppNavigatior = () => {
@@ -35,14 +36,16 @@ const AppNavigatior = () => {
       return null;
    }
    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Dashboard2">
-         {/* {appLaunched === 'Installed' ? <Stack.Screen name="Dashboard" component={Dashboard} /> :
-            <Stack.Screen name="SplashScreen" component={SplashScreen} />} */}
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="SplashScreen">
+         {appLaunched === 'Installed' ? <Stack.Screen name="Dashboard" component={Dashboard} /> :
+            <Stack.Screen name="SplashScreen" component={SplashScreen} />}
+         <Stack.Screen name="SplashScreen" component={SplashScreen} />
          <Stack.Screen name="OnboardingScreen1" options={{ animation: 'none' }} component={OnboardingScreen1} />
          <Stack.Screen name="OnboardingScreen2" component={OnboardingScreen2} />
          <Stack.Screen name="Dashboard2" component={Dashboard} />
          <Stack.Screen name="Favourites" component={Favourites} />
          <Stack.Screen name="Themes" component={Themes} />
+         <Stack.Screen name="GetNotificationScreen" component={GetNotificationScreen}/>
       </Stack.Navigator>
    );
 }

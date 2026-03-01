@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import kural from '../assets/data/kural.json';
 
 export const runDailyKuralEngine = async () => {
-  console.log('sample check for kural...', kural[0]);
   const today = new Date().toISOString().split('T')[0];
   const lastDate = await AsyncStorage.getItem('lastKuralDate');
   let lastNumber = Number(await AsyncStorage.getItem('lastKuralNumber')) || 0;
@@ -29,6 +28,10 @@ export const runDailyKuralEngine = async () => {
     await AsyncStorage.setItem('lastKuralNumber', lastNumber.toString());
     await AsyncStorage.setItem('lastKuralDate', today);
   }
-
+  function randomInteger(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  const randomNumber = randomInteger(0, 1330);
+  console.log('this is the number generated randomly', randomNumber);
   return kural[lastNumber];
 };

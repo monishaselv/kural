@@ -18,6 +18,7 @@ function useThrottle<T> (value : T, limit: number) : T {
       const handler = setTimeout(() => {
          if(  Date.now() - lastRun >= limit) {
        lastRun.current = Date.now()
+       
         setThrottle(value)
        }
       },limit - (Date.now()- lastRun.current))
@@ -57,7 +58,33 @@ const useDeebounce = ({value, delay} : {value: any, delay: number}) => {
     return debounce;
 }
 const sample = [12,2,3,7,6];
-const getEven = useMemo(() => {return sample.filter((item: number) => item%2 == 0)},[sample])
+const getEven = useMemo(() => {return sample.filter((item: number) => item%2 == 0)},[sample]);
 const fruits = useMemo(() => {
   return sample.filter(item => item%2 == 0);
 }, [sample]);
+
+const ParentComponent = (sample) => {
+    const even = useMemo(() => {
+        return sample.filter((item: any) => item % 2 === 0);
+    },[])
+    
+    const onClick = useCallback(() => {
+        console.log('num',even)
+    },[even])
+    return <ChildComponent onPress={onClick}/>
+}
+const ChildComponent = React.memo(({onPress} : any) => {
+    return (
+        <Button onPress={onPress} />
+    );
+})
+function debounceFn  ({value, delay}: {value: any, delay: number}) {
+    const [debounce, setDebounce] = useState('');
+    useEffect(() => {
+       const handler = setTimeout(() => {
+        setDebounce(value)
+       },delay)
+       return clearTimeout(handler);
+    },[value,delay])
+    return debounce;
+}

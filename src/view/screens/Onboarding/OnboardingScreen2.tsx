@@ -28,7 +28,7 @@ const OnboardingScreen2 = () => {
         </View>
         <View style={styles.rowStyles}>
           <AppGreySText text={AppStrings.skip} styles={{ marginTop: 30 }}></AppGreySText>
-          <ProgressButton onPress={() => { navigation.navigate('Dashboard2') }} progressValue={60} />
+          <ProgressButton onPress={() => { navigation.navigate('GetNotificationScreen') }} progressValue={60} />
         </View>
       </View>
     </SafeAreaView>

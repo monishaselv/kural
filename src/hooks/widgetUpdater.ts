@@ -7,7 +7,11 @@ export async function updateWidget(response: any) {
     chapter: response.section
   };
   if (Platform.OS === 'android') {
-    await NativeModules.WidgetUpdater?.setKural(JSON.stringify(kuralData));
+    NativeModules.RNFavsWidgetShare?.setData(
+      "kuralWidget",
+      JSON.stringify(kuralData),
+      (status: any) => console.log("Widget Save status:", status)
+    );
   } else {
     await NativeModules.WidgetUpdater?.reloadTimelines(JSON.stringify(kuralData));
     NativeModules.RNFavsWidgetShare.setData(

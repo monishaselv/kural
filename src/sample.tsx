@@ -26,6 +26,7 @@ useEffect(() => {
     fetchApi(tutorId)
 }, [arr])
 
+const fetchApi = 
 
 const SampleApp = () => {
     const [widgetKurals] = useState(kural);
@@ -34,7 +35,6 @@ const SampleApp = () => {
     const [kk, setKk] = useState(0);
     function useDebounce<T>(value: T, delay: number): T {
         const [debounce, setDebounce] = useState(value);
-        useEffect(() => {
             const handler = setTimeout(() => {
                 setDebounce(value)
             }, delay)
@@ -66,7 +66,7 @@ const SampleApp = () => {
         const url = '';
         try {
             const data = await fetch(url)
-            const response = data.json()
+            const response = await data.json()
             return data;
         } catch (error) {
             console.log(error)
@@ -159,10 +159,8 @@ const SampleApp = () => {
     );
 };
 const ParentComponent = () => {
-    const handlePress = () => {
-        console.log("Button Pressed");
-    };
-    const handlePresss = useCallback(() => {
+
+    const handlePress = useCallback(() => {
         console.log("Button Pressed");
     }, [])
 
@@ -324,3 +322,4 @@ export default SampleApp;
 //       },
 //     });
 //   }
+
