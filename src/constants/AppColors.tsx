@@ -7,6 +7,7 @@ export const appColors = {
     iconGrey: '#F1F1F1',
     transparentPrimary: 'rgba(155, 155, 255, 0.2)',
     transparentGrey: 'rgba(155, 155, 255, 0.3)',
+    transparentBlack: 'rgba(0, 0, 0, 0.3)',
     primaryFaded: 'rgba(155, 155, 255, 0.8)',
     darkGrey: '#5D5D99',
     black: '#101121',

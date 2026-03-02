@@ -12,6 +12,7 @@ import Storage from "../local/storage";
 import { setLaunchedApp } from "../redux/slice/appSlice";
 import { RootState } from "../redux/store";
 import GetNotificationScreen from "../view/screens/UserPrefers/GetNotified";
+import ChooseOrderScreen from "../view/screens/UserPrefers/ChooseOrder";
 
 const Stack = createNativeStackNavigator();
 const AppNavigatior = () => {
@@ -36,7 +37,7 @@ const AppNavigatior = () => {
       return null;
    }
    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="SplashScreen">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ChooseOrderScreen">
          {appLaunched === 'Installed' ? <Stack.Screen name="Dashboard" component={Dashboard} /> :
             <Stack.Screen name="SplashScreen" component={SplashScreen} />}
          <Stack.Screen name="SplashScreen" component={SplashScreen} />
@@ -45,7 +46,8 @@ const AppNavigatior = () => {
          <Stack.Screen name="Dashboard2" component={Dashboard} />
          <Stack.Screen name="Favourites" component={Favourites} />
          <Stack.Screen name="Themes" component={Themes} />
-         <Stack.Screen name="GetNotificationScreen" component={GetNotificationScreen}/>
+         <Stack.Screen name="GetNotificationScreen" component={GetNotificationScreen} />
+         <Stack.Screen name="ChooseOrderScreen" component={ChooseOrderScreen} />
       </Stack.Navigator>
    );
 }
