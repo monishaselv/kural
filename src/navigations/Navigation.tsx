@@ -37,10 +37,10 @@ const AppNavigatior = () => {
       return null;
    }
    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ChooseOrderScreen">
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
          {appLaunched === 'Installed' ? <Stack.Screen name="Dashboard" component={Dashboard} /> :
             <Stack.Screen name="SplashScreen" component={SplashScreen} />}
-         <Stack.Screen name="SplashScreen" component={SplashScreen} />
+         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
          <Stack.Screen name="OnboardingScreen1" options={{ animation: 'none' }} component={OnboardingScreen1} />
          <Stack.Screen name="OnboardingScreen2" component={OnboardingScreen2} />
          <Stack.Screen name="Dashboard2" component={Dashboard} />
