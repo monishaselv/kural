@@ -13,8 +13,11 @@ import { setLaunchedApp } from "../redux/slice/appSlice";
 import { RootState } from "../redux/store";
 import GetNotificationScreen from "../view/screens/UserPrefers/GetNotified";
 import ChooseOrderScreen from "../view/screens/UserPrefers/ChooseOrder";
+import KuralChat from "../view/components/kuralChat";
+import { RootStackParamList } from "./navigationTypes";
 
-const Stack = createNativeStackNavigator();
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const AppNavigatior = () => {
    const dispatch = useDispatch();
    const [loading, setLoading] = useState(true);
@@ -48,6 +51,7 @@ const AppNavigatior = () => {
          <Stack.Screen name="Themes" component={Themes} />
          <Stack.Screen name="GetNotificationScreen" component={GetNotificationScreen} />
          <Stack.Screen name="ChooseOrderScreen" component={ChooseOrderScreen} />
+         <Stack.Screen name='KuralChat' component={KuralChat} />
       </Stack.Navigator>
    );
 }

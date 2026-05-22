@@ -13,6 +13,7 @@ import { ToastProvider, useToast } from './src/view/components/ToastContext';
 import { AppToast } from './src/view/components/AppToast';
 import notifee from '@notifee/react-native';
 import { initializeDailySystem } from './src/viewModel/kuralUpdater';
+import KuralChat from './src/view/components/kuralChat';
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);

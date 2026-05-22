@@ -176,6 +176,10 @@ export const SettingsBottomSheet = forwardRef<BottomSheetMethods>(
                                     <HeartOutlineIcon strokeWidth={2} />
                                     <AppText text={AppStrings.favs}></AppText>
                                 </TouchableOpacity>
+                                <TouchableOpacity style={styles.listStyles} onPress={() => { close(), navigation.navigate('KuralChat') }}>
+                                    <HeartOutlineIcon strokeWidth={2} />
+                                    <AppText text='Ai Chat'></AppText>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </Animated.View>

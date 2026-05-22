@@ -24,6 +24,7 @@ import { useToast } from "../components/ToastContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRoute } from "@react-navigation/native";
 import React from "react";
+import KuralChat from "../components/kuralChat";
 
 const Dashboard = () => {
     const route = useRoute();
@@ -273,6 +274,7 @@ const Dashboard = () => {
         // >
         <Animated.View style={[appStyles.sreenView, styles.appView, { paddingTop: insets.top, }]}>
             <Backgrounds bgTheme={bgTheme} />
+            {/* <KuralChat /> */}
             <View style={styles.topView}>
                 <View style={styles.searchBar}>
                     <Search width={18} />
